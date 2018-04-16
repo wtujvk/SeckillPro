@@ -32,6 +32,7 @@ namespace SeckillPro.Com.Tool
             catch (Exception ex)
             {
                 strRp = ex.Message;
+                LoggerFactory.Instance.Logger_Error(ex);
             }
             return strRp;
         }

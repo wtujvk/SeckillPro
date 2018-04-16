@@ -7,13 +7,20 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
+using SeckillPro.Com;
 
 namespace SeckillPro.Server
 {
     class Program
     {
+        static Program()
+        {
+            ConfigData.RedisConnectionString = WebConfig.GetWebConfig("RedisConnectionString", "");
+            ConfigData.ResisDb = WebConfig.GetWebConfig("ResisDb", "2").Toint();
+            _redis = StackRedis.Current;
+        }
         //redis引用
-        private static StackRedis _redis = StackRedis.Current;
+        private static StackRedis _redis; // = StackRedis.Current;
         //控制重复任务
         private static Dictionary<long, long> _dicTask = new Dictionary<long, long>();
         static void Main(string[] args)
@@ -116,6 +123,7 @@ namespace SeckillPro.Server
                                     catch (Exception ex)
                                     {
                                         sbLog.AppendFormat("异常信息：{0},", ex.Message);
+                                        LoggerFactory.Instance.Logger_Error(ex);
                                     }
                                     finally
                                     {
@@ -134,6 +142,7 @@ namespace SeckillPro.Server
                             catch (Exception ex)
                             {
                                 sbTaskLog.AppendFormat("异常信息：{0}；", ex.Message);
+                                LoggerFactory.Instance.Logger_Error(ex);
                             }
                             finally
                             {
@@ -151,6 +160,7 @@ namespace SeckillPro.Server
             catch (Exception ex)
             {
                 Console.WriteLine("全局异常信息：" + ex.Message);
+                LoggerFactory.Instance.Logger_Error(ex);
             }
             Console.WriteLine("温馨提示：按住任意键即可退出！");
             Console.ReadLine();

@@ -10,6 +10,7 @@ using SeckillPro.Com.Model.CrmModel;
 using SeckillPro.Com.Model;
 using SeckillPro.Com.Common;
 using System.IO;
+using SeckillPro.Com;
 
 namespace SeckillPro.Api.Controllers
 {
@@ -126,6 +127,7 @@ namespace SeckillPro.Api.Controllers
             catch (Exception ex)
             {
                 rp.RpMsg = "抢购活动正在高峰期，请稍后重试";
+                LoggerFactory.Instance.Logger_Error(ex);
             }
             return rp;
         }
@@ -199,6 +201,7 @@ namespace SeckillPro.Api.Controllers
             catch (Exception ex)
             {
                 rp.RpMsg = "查询超时，请稍后重试";
+                LoggerFactory.Instance.Logger_Error(ex);
             }
             return rp;
         }

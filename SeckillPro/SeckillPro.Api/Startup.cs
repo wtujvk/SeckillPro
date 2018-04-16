@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SeckillPro.Com;
 
 namespace SeckillPro.Api
 {
@@ -20,6 +21,10 @@ namespace SeckillPro.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            ConfigData.ApiUrl = Configuration.GetValue<string>("ApiUrl");
+            ConfigData.RedisConnectionString = Configuration.GetValue<string>("RedisConnectionString");
+            ConfigData.ResisDb = Configuration.GetValue<int>("ResisDb");
         }
 
         public IConfigurationRoot Configuration { get; }

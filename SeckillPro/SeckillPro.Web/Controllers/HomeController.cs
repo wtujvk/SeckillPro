@@ -10,6 +10,7 @@ using SeckillPro.Com.Common;
 using System.Net.Http;
 using SeckillPro.Com.Model.ApiModel;
 using Newtonsoft.Json;
+using SeckillPro.Com;
 
 namespace SeckillPro.Web.Controllers
 {
@@ -120,7 +121,7 @@ namespace SeckillPro.Web.Controllers
             var content = new StringContent(strRq, System.Text.Encoding.UTF8, "application/json");
 
             //基础接口地址
-            string apiBaseUrl = $"http://{HttpContext.Connection.LocalIpAddress}:4545";
+            string apiBaseUrl = ConfigData.ApiUrl;  //$"http://{HttpContext.Connection.LocalIpAddress}:4545";
             var qiangApiUrl = $"{apiBaseUrl}/api/order/SubmitQiangGouOrder";
             var strRp = await HttpTool.HttpPostAsync(qiangApiUrl, content, 30);
             if (string.IsNullOrWhiteSpace(strRp))
@@ -163,7 +164,7 @@ namespace SeckillPro.Web.Controllers
             var content = new StringContent(strRq, System.Text.Encoding.UTF8, "application/json");
 
             //基础接口地址
-            string apiBaseUrl = $"http://{HttpContext.Connection.LocalIpAddress}:4545";
+            string apiBaseUrl = ConfigData.ApiUrl;// $"http://{HttpContext.Connection.LocalIpAddress}:4545";
             var qiangApiUrl = $"{apiBaseUrl}/api/order/GetOrderDetail";
             var strRp = await HttpTool.HttpPostAsync(qiangApiUrl, content, 30);
             if (string.IsNullOrWhiteSpace(strRp))

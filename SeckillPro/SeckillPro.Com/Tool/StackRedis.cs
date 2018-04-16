@@ -8,11 +8,23 @@ namespace SeckillPro.Com.Tool
 {
     public class StackRedis : IDisposable
     {
+       public StackRedis()
+       {
+            if (!string.IsNullOrWhiteSpace(ConfigData.RedisConnectionString))
+            {
+                _ConnectionString = ConfigData.RedisConnectionString;
+            }
+            if (ConfigData.ResisDb > -1)
+            {
+                _Db = ConfigData.ResisDb;
+            }
+       }
         #region 配置属性   基于 StackExchange.Redis 封装
         //连接串 （注：IP:端口,属性=,属性=)
-        public string _ConnectionString = "127.0.0.1:6377,password=shenniubuxing3";
-        //操作的库（注：默认0库）
-        public int _Db = 0;
+        //public string _ConnectionString = "127.0.0.1:6377,password=shenniubuxing3";
+        public string _ConnectionString = "192.168.1.90:6379";
+        //操作的库（注：默认2库）
+        public int _Db =2;
         #endregion
 
         #region 管理器对象
